@@ -29,14 +29,14 @@ class FCO(nn.Module):
     def __init__(self, mode: int) -> None:
         super().__init__()
         self.mode: int = mode
-        self.R: nn.Module = nn.Linear(self.mode, self.mode)
+        self.R: nn.Module = nn.Linear(self.mode, self.mode, dtype=torch.complex64)
 
     @override
     def forward(self, x: Tensor) -> Tensor:
         shape = x.shape
-        fft = torch.fft.fft2(x, s=(self.mode, self.mode))
+        fft = torch.fft.fftn(x, dim=())
         x = self.R(fft)
-        x = torch.fft.ifft2(x, s=shape)
+        x = torch.fft.ifftn(x, s=shape)
         return x
 
 
