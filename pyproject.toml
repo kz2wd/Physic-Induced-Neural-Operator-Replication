@@ -3,17 +3,15 @@ name = "pino"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.11"
 dependencies = [
+    "ipykernel>=6.31.0",
     "jupyter>=1.1.1",
     "lab>=8.9",
-    "matplotlib>=3.10.8",
-    "numpy>=2.4.2",
-    "pandas>=3.0.1",
+    "napari[all,pyqt5]>=0.6.6",
+    "pyqt6>=6.10.2",
     "s3fs>=2026.2.0",
-    "scipy>=1.17.1",
-    "seaborn>=0.13.2",
     "torch>=2.10.0",
-    "tqdm>=4.67.3",
+    "trackio>=0.18.0",
     "zarr>=3.1.5",
 ]
