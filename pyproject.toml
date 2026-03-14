@@ -5,10 +5,12 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "imageio[ffmpeg]>=2.37.2",
     "ipykernel>=6.31.0",
     "jupyter>=1.1.1",
     "lab>=8.9",
     "napari[all,pyqt5]>=0.6.6",
+    "neuraloperator>=2.0.0",
     "pyqt6>=6.10.2",
     "s3fs>=2026.2.0",
     "scikit-learn>=1.8.0",
