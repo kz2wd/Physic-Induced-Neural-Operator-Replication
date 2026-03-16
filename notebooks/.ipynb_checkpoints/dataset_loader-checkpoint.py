@@ -15,14 +15,15 @@ with open(os.path.expanduser("~") + "/.keys") as f:
         if line.startswith("export "):
             key, val = line.strip().split("=", 1)
             os.environ[key.replace("export ","")] = val
+
 fs = s3fs.S3FileSystem(
-        key=os.environ["AWS_ACCESS_KEY_ID"],
-        secret=os.environ["AWS_SECRET_ACCESS_KEY"],
-        client_kwargs={"endpoint_url": "http://localhost:8333"}
-    )
+    key=os.environ["AWS_ACCESS_KEY_ID"],
+    secret=os.environ["AWS_SECRET_ACCESS_KEY"],
+    client_kwargs={"endpoint_url": "http://localhost:8333"}
+)
 
 class LDCDataset(Dataset):
-    def __init__(self, name, resolution, dimT):
+    def __init__(self, name, resolution, dimT_start=0, dimT_end=-1, dimT_step=1):
         
         store_X = s3fs.S3Map(root=f"ldcdataset/{name}/X", s3=fs, check=False)
         store_Y = s3fs.S3Map(root=f"ldcdataset/{name}/Y", s3=fs, check=False)
@@ -35,7 +36,7 @@ class LDCDataset(Dataset):
         x = x.permute(0, 2, 3, 1)  # B X X C
         self.X = x
         
-        y = torch.from_numpy(dts_Y[:, :dimT])
+        y = torch.from_numpy(dts_Y[:, dimT_start:dimT_end:dimT_step])
 
         B, T, X, _, C = y.shape
 
